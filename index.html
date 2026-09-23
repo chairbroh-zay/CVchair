@@ -20,7 +20,7 @@
             min-height: 100vh;
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start;
         }
 
         :root {
@@ -30,7 +30,7 @@
         }
 
         /* ==============================================
-           CV WRAPPER - 2 KOLOM
+           CV WRAPPER - 2 KOLOM (A4 PROPORTION)
            ============================================== */
         .cv-wrapper {
             max-width: 1000px;
@@ -42,6 +42,7 @@
             overflow: hidden;
             box-shadow: 0 25px 70px rgba(0, 0, 0, 0.18);
             background: white;
+            align-items: stretch;
         }
 
         /* ==============================================
@@ -54,7 +55,7 @@
             display: flex;
             flex-direction: column;
             gap: 18px;
-            min-height: 100%;
+            height: 100%;
         }
 
         .cv-left .foto-wrapper { text-align: center; }
@@ -158,6 +159,7 @@
         .cv-right {
             background: white;
             padding: 35px 32px 40px;
+            height: 100%;
         }
 
         .cv-right .cv-section-right { margin-bottom: 22px; }
@@ -216,9 +218,6 @@
             line-height: 1.6;
         }
 
-        /* ==============================================
-           SKILL
-           ============================================== */
         .cv-skill-category { margin-bottom: 10px; }
 
         .cv-skill-category .cv-skill-cat-title {
@@ -246,9 +245,6 @@
             border: 1px solid #e2e8f0;
         }
 
-        /* ==============================================
-           SOFT SKILL
-           ============================================== */
         .cv-soft-grid {
             display: flex;
             flex-wrap: wrap;
@@ -401,48 +397,15 @@
             .cv-left .foto-wrapper img { width: 100px; height: 100px; }
         }
 
-        /* ==============================================
-           PRINT - A4
-           ============================================== */
         @media print {
             * { margin: 0; padding: 0; box-sizing: border-box; }
             body { background: white !important; padding: 0 !important; margin: 0 !important; display: block !important; min-height: auto !important; }
-            .cv-wrapper { max-width: 100% !important; width: 100% !important; display: grid !important; grid-template-columns: 32% 68% !important; gap: 0 !important; border-radius: 0 !important; box-shadow: none !important; background: white !important; height: auto !important; min-height: 100vh !important; }
+            .cv-wrapper { max-width: 100% !important; width: 100% !important; display: grid !important; grid-template-columns: 32% 68% !important; gap: 0 !important; border-radius: 0 !important; box-shadow: none !important; background: white !important; height: auto !important; }
             .cv-left { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; background: #1a1a2e !important; padding: 22px 16px 28px !important; gap: 10px !important; }
             .cv-right { background: white !important; padding: 22px 24px 28px !important; }
             .btn-group-cv { display: none !important; }
             .form-section { display: none !important; }
             #loadingOverlay { display: none !important; }
-            .cv-left .cv-nama { font-size: 1.2rem !important; }
-            .cv-left .cv-title-left { font-size: 0.65rem !important; }
-            .cv-left .cv-about { font-size: 0.65rem !important; line-height: 1.5 !important; }
-            .cv-left .cv-contact-item { font-size: 0.6rem !important; margin-bottom: 3px !important; gap: 6px !important; }
-            .cv-left .cv-contact-item i { font-size: 0.7rem !important; width: 18px !important; }
-            .cv-left .cv-section-title-left { font-size: 0.65rem !important; padding-bottom: 3px !important; margin-bottom: 5px !important; gap: 4px !important; }
-            .cv-left .cv-section-left { margin-top: 2px !important; gap: 0 !important; }
-            .cv-right .cv-section-title-right { font-size: 0.7rem !important; padding-bottom: 3px !important; margin-bottom: 6px !important; gap: 4px !important; border-bottom-width: 2px !important; }
-            .cv-right .cv-section-title-right i { width: 18px !important; font-size: 0.7rem !important; }
-            .cv-right .cv-item-right { font-size: 0.65rem !important; margin-bottom: 1px !important; line-height: 1.5 !important; }
-            .cv-right .cv-org-list-right li { font-size: 0.6rem !important; margin-bottom: 1px !important; line-height: 1.4 !important; }
-            .cv-right .cv-date { font-size: 0.55rem !important; }
-            .cv-right .cv-section-right { margin-bottom: 6px !important; }
-            .cv-skill-category { margin-bottom: 4px !important; }
-            .cv-skill-category .cv-skill-cat-title { font-size: 0.6rem !important; margin-bottom: 2px !important; }
-            .cv-skill-category .cv-skill-tag-right { font-size: 0.55rem !important; padding: 1px 8px !important; border-radius: 12px !important; }
-            .cv-soft-tag-right { font-size: 0.55rem !important; padding: 2px 10px !important; border-radius: 12px !important; }
-            .cv-soft-grid { gap: 3px !important; }
-            .cv-left .foto-wrapper img { width: 100px !important; height: 100px !important; border-width: 3px !important; }
-            .cv-right .cv-org-list-right { padding-left: 14px !important; margin-top: 2px !important; }
-            .cv-left .cv-nama,
-            .cv-left .cv-title-left,
-            .cv-left .cv-section-title-left,
-            .cv-left .cv-section-title-left i,
-            .cv-left .cv-contact-item i,
-            .cv-right .cv-section-title-right i,
-            .cv-skill-category .cv-skill-cat-title {
-                -webkit-print-color-adjust: exact !important;
-                print-color-adjust: exact !important;
-            }
         }
     </style>
 </head>
@@ -791,7 +754,7 @@
         }
 
         // ==============================================
-        // DOWNLOAD GAMBAR (PNG) - VERSI PERBAIKAN
+        // DOWNLOAD GAMBAR - VERSI PERBAIKAN TOTAL
         // ==============================================
         function downloadImage() {
             const overlay = $('loadingOverlay');
@@ -814,7 +777,7 @@
             // Delay biar CSS render dulu
             setTimeout(() => {
                 html2canvas(cvElement, {
-                    scale: 3,
+                    scale: 2.5,
                     useCORS: true,
                     allowTaint: true,
                     backgroundColor: '#ffffff',
@@ -839,6 +802,19 @@
                             clonedWrapper.style.borderRadius = '0';
                             clonedWrapper.style.boxShadow = 'none';
                             clonedWrapper.style.overflow = 'visible';
+                            clonedWrapper.style.alignItems = 'stretch';
+                            
+                            // Paksa kedua kolom punya tinggi sama
+                            const leftCol = clonedWrapper.querySelector('.cv-left');
+                            const rightCol = clonedWrapper.querySelector('.cv-right');
+                            if (leftCol) {
+                                leftCol.style.height = '100%';
+                                leftCol.style.minHeight = originalHeight + 'px';
+                            }
+                            if (rightCol) {
+                                rightCol.style.height = '100%';
+                                rightCol.style.minHeight = originalHeight + 'px';
+                            }
                         }
                     }
                 }).then(canvas => {
@@ -860,7 +836,7 @@
                     overlay.style.display = 'none';
                     alert('❌ Gagal download gambar. Silakan coba lagi.');
                 });
-            }, 300);
+            }, 500);
         }
 
         function toggleForm() {
