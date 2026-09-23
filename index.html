@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -30,6 +29,9 @@
             --gradient-accent: linear-gradient(135deg, #06b6d4, #14b8a6);
         }
 
+        /* ==============================================
+           CV WRAPPER - 2 KOLOM
+           ============================================== */
         .cv-wrapper {
             max-width: 1000px;
             width: 100%;
@@ -42,6 +44,9 @@
             background: white;
         }
 
+        /* ==============================================
+           SISI KIRI - HITAM
+           ============================================== */
         .cv-left {
             background: #1a1a2e;
             padding: 35px 22px 40px;
@@ -147,6 +152,9 @@
             background-clip: text;
         }
 
+        /* ==============================================
+           SISI KANAN - PUTIH
+           ============================================== */
         .cv-right {
             background: white;
             padding: 35px 32px 40px;
@@ -208,6 +216,9 @@
             line-height: 1.6;
         }
 
+        /* ==============================================
+           SKILL
+           ============================================== */
         .cv-skill-category { margin-bottom: 10px; }
 
         .cv-skill-category .cv-skill-cat-title {
@@ -235,6 +246,9 @@
             border: 1px solid #e2e8f0;
         }
 
+        /* ==============================================
+           SOFT SKILL
+           ============================================== */
         .cv-soft-grid {
             display: flex;
             flex-wrap: wrap;
@@ -250,6 +264,9 @@
             border: 1px solid rgba(6, 182, 212, 0.3);
         }
 
+        /* ==============================================
+           TOMBOL
+           ============================================== */
         .btn-group-cv {
             grid-column: 1 / -1;
             padding: 16px 24px 20px;
@@ -284,6 +301,9 @@
         .btn-group-cv .btn-danger { background: linear-gradient(135deg, #dc2626, #ef4444); }
         .btn-group-cv .btn-danger:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(220, 38, 38, 0.4); }
 
+        /* ==============================================
+           LOADING OVERLAY
+           ============================================== */
         #loadingOverlay {
             display: none;
             position: fixed;
@@ -317,6 +337,9 @@
             100% { transform: rotate(360deg); }
         }
 
+        /* ==============================================
+           FORM EDIT
+           ============================================== */
         .form-section {
             grid-column: 1 / -1;
             padding: 24px 28px;
@@ -360,6 +383,9 @@
         }
         .form-section .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(6, 182, 212, 0.4); }
 
+        /* ==============================================
+           RESPONSIVE
+           ============================================== */
         @media (max-width: 768px) {
             .cv-wrapper { grid-template-columns: 1fr; border-radius: 14px; }
             .cv-left { padding: 24px 18px 28px; }
@@ -375,6 +401,9 @@
             .cv-left .foto-wrapper img { width: 100px; height: 100px; }
         }
 
+        /* ==============================================
+           PRINT - A4
+           ============================================== */
         @media print {
             * { margin: 0; padding: 0; box-sizing: border-box; }
             body { background: white !important; padding: 0 !important; margin: 0 !important; display: block !important; min-height: auto !important; }
@@ -421,7 +450,7 @@
 
     <div id="loadingOverlay">
         <div class="spinner"></div>
-        <div>⏳ Sedang memproses PDF...</div>
+        <div>⏳ Sedang memproses gambar...</div>
         <div style="font-size:0.8rem; margin-top:8px; color:#aaa;">Mohon tunggu sebentar</div>
     </div>
 
@@ -490,7 +519,7 @@
         </div>
 
         <div class="btn-group-cv">
-            <button class="btn btn-success" id="btnPDF"><i class="fas fa-file-pdf me-2"></i> Download PDF</button>
+            <button class="btn btn-success" id="btnImage"><i class="fas fa-image me-2"></i> Download Gambar</button>
             <button class="btn btn-primary" onclick="window.print()"><i class="fas fa-print me-2"></i> Cetak</button>
             <button class="btn btn-warning" id="btnEdit"><i class="fas fa-pen me-2"></i> Edit Data</button>
             <button class="btn btn-danger" id="btnReset"><i class="fas fa-undo me-2"></i> Reset</button>
@@ -762,9 +791,9 @@
         }
 
         // ==============================================
-        // EXPORT PDF - VERSI PERBAIKAN (FIX LAYOUT & KEPOTONG)
+        // DOWNLOAD GAMBAR (PNG) - VERSI PERBAIKAN
         // ==============================================
-        function exportPDF() {
+        function downloadImage() {
             const overlay = $('loadingOverlay');
             overlay.style.display = 'flex';
 
@@ -778,12 +807,14 @@
 
             const cvElement = $('cvWrapper');
 
-            setTimeout(() => {
-                const originalWidth = cvElement.scrollWidth;
-                const originalHeight = cvElement.scrollHeight;
+            // Ambil ukuran asli
+            const originalWidth = cvElement.scrollWidth;
+            const originalHeight = cvElement.scrollHeight;
 
+            // Delay biar CSS render dulu
+            setTimeout(() => {
                 html2canvas(cvElement, {
-                    scale: 2,
+                    scale: 3,
                     useCORS: true,
                     allowTaint: true,
                     backgroundColor: '#ffffff',
@@ -797,6 +828,7 @@
                     x: 0,
                     y: 0,
                     onclone: function(clonedDoc) {
+                        // Paksa layout grid tetap 2 kolom di clone
                         const clonedWrapper = clonedDoc.getElementById('cvWrapper');
                         if (clonedWrapper) {
                             clonedWrapper.style.display = 'grid';
@@ -806,47 +838,27 @@
                             clonedWrapper.style.minHeight = originalHeight + 'px';
                             clonedWrapper.style.borderRadius = '0';
                             clonedWrapper.style.boxShadow = 'none';
+                            clonedWrapper.style.overflow = 'visible';
                         }
                     }
                 }).then(canvas => {
+                    // Tampilkan kembali tombol & form
                     btnGroup.style.display = originalBtnDisplay || 'flex';
                     formSection.style.display = originalFormDisplay;
                     overlay.style.display = 'none';
 
-                    const { jsPDF } = window.jspdf;
-                    const pdf = new jsPDF('p', 'mm', 'a4');
-
-                    const pdfWidth = pdf.internal.pageSize.getWidth();
-                    const pdfHeight = pdf.internal.pageSize.getHeight();
-
-                    const imgWidth = pdfWidth;
-                    const imgHeight = (canvas.height * imgWidth) / canvas.width;
-
-                    if (imgHeight <= pdfHeight) {
-                        pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, imgWidth, imgHeight);
-                    } else {
-                        let heightLeft = imgHeight;
-                        let position = 0;
-
-                        pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, position, imgWidth, imgHeight);
-                        heightLeft -= pdfHeight;
-
-                        while (heightLeft > 0) {
-                            position = heightLeft - imgHeight;
-                            pdf.addPage();
-                            pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, position, imgWidth, imgHeight);
-                            heightLeft -= pdfHeight;
-                        }
-                    }
-
-                    pdf.save('CV-Chairil-Ibrahim.pdf');
+                    // Convert ke PNG dan download
+                    const link = document.createElement('a');
+                    link.download = 'CV-Chairil-Ibrahim.png';
+                    link.href = canvas.toDataURL('image/png');
+                    link.click();
 
                 }).catch(error => {
                     console.error('Error:', error);
                     btnGroup.style.display = originalBtnDisplay || 'flex';
                     formSection.style.display = originalFormDisplay;
                     overlay.style.display = 'none';
-                    alert('❌ Gagal export PDF. Silakan coba lagi.');
+                    alert('❌ Gagal download gambar. Silakan coba lagi.');
                 });
             }, 300);
         }
@@ -892,7 +904,7 @@
             $('btnEdit').addEventListener('click', toggleForm);
             $('btnCancelEdit').addEventListener('click', toggleForm);
             $('btnSave').addEventListener('click', saveData);
-            $('btnPDF').addEventListener('click', exportPDF);
+            $('btnImage').addEventListener('click', downloadImage);
             $('btnReset').addEventListener('click', resetData);
             $('fotoCV').addEventListener('click', changeFoto);
         });
