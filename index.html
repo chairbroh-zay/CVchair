@@ -20,7 +20,7 @@
             min-height: 100vh;
             display: flex;
             justify-content: center;
-            align-items: flex-start;
+            align-items: center;
         }
 
         :root {
@@ -30,13 +30,14 @@
         }
 
         /* ==============================================
-           CV WRAPPER - 2 KOLOM (GRID untuk tampilan)
+           CV WRAPPER - 2 KOLOM
            ============================================== */
         .cv-wrapper {
             max-width: 1000px;
             width: 100%;
-            display: flex;
-            align-items: stretch;
+            display: grid;
+            grid-template-columns: 32% 68%;
+            gap: 0;
             border-radius: 20px;
             overflow: hidden;
             box-shadow: 0 25px 70px rgba(0, 0, 0, 0.18);
@@ -53,8 +54,7 @@
             display: flex;
             flex-direction: column;
             gap: 18px;
-            flex: 0 0 32%;
-            width: 32%;
+            min-height: 100%;
         }
 
         .cv-left .foto-wrapper { text-align: center; }
@@ -158,8 +158,6 @@
         .cv-right {
             background: white;
             padding: 35px 32px 40px;
-            flex: 1;
-            width: 68%;
         }
 
         .cv-right .cv-section-right { margin-bottom: 22px; }
@@ -218,6 +216,9 @@
             line-height: 1.6;
         }
 
+        /* ==============================================
+           SKILL
+           ============================================== */
         .cv-skill-category { margin-bottom: 10px; }
 
         .cv-skill-category .cv-skill-cat-title {
@@ -245,6 +246,9 @@
             border: 1px solid #e2e8f0;
         }
 
+        /* ==============================================
+           SOFT SKILL
+           ============================================== */
         .cv-soft-grid {
             display: flex;
             flex-wrap: wrap;
@@ -264,7 +268,7 @@
            TOMBOL
            ============================================== */
         .btn-group-cv {
-            width: 100%;
+            grid-column: 1 / -1;
             padding: 16px 24px 20px;
             background: #f8f9fa;
             display: flex;
@@ -337,7 +341,7 @@
            FORM EDIT
            ============================================== */
         .form-section {
-            width: 100%;
+            grid-column: 1 / -1;
             padding: 24px 28px;
             background: #f8f9fa;
             border-top: 2px dashed #dee2e6;
@@ -383,10 +387,10 @@
            RESPONSIVE
            ============================================== */
         @media (max-width: 768px) {
-            .cv-wrapper { flex-direction: column; border-radius: 14px; }
-            .cv-left { width: 100%; flex: none; padding: 24px 18px 28px; }
+            .cv-wrapper { grid-template-columns: 1fr; border-radius: 14px; }
+            .cv-left { padding: 24px 18px 28px; }
             .cv-left .foto-wrapper img { width: 120px; height: 120px; }
-            .cv-right { width: 100%; flex: none; padding: 20px 16px 28px; }
+            .cv-right { padding: 20px 16px 28px; }
             .btn-group-cv { flex-direction: column; }
             .btn-group-cv .btn { flex: none; width: 100%; }
         }
@@ -397,15 +401,48 @@
             .cv-left .foto-wrapper img { width: 100px; height: 100px; }
         }
 
+        /* ==============================================
+           PRINT - A4
+           ============================================== */
         @media print {
             * { margin: 0; padding: 0; box-sizing: border-box; }
             body { background: white !important; padding: 0 !important; margin: 0 !important; display: block !important; min-height: auto !important; }
-            .cv-wrapper { max-width: 100% !important; width: 100% !important; display: flex !important; flex-direction: row !important; border-radius: 0 !important; box-shadow: none !important; background: white !important; }
-            .cv-left { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; background: #1a1a2e !important; padding: 22px 16px 28px !important; gap: 10px !important; flex: 0 0 32% !important; }
-            .cv-right { background: white !important; padding: 22px 24px 28px !important; flex: 1 !important; }
+            .cv-wrapper { max-width: 100% !important; width: 100% !important; display: grid !important; grid-template-columns: 32% 68% !important; gap: 0 !important; border-radius: 0 !important; box-shadow: none !important; background: white !important; height: auto !important; min-height: 100vh !important; }
+            .cv-left { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; background: #1a1a2e !important; padding: 22px 16px 28px !important; gap: 10px !important; }
+            .cv-right { background: white !important; padding: 22px 24px 28px !important; }
             .btn-group-cv { display: none !important; }
             .form-section { display: none !important; }
             #loadingOverlay { display: none !important; }
+            .cv-left .cv-nama { font-size: 1.2rem !important; }
+            .cv-left .cv-title-left { font-size: 0.65rem !important; }
+            .cv-left .cv-about { font-size: 0.65rem !important; line-height: 1.5 !important; }
+            .cv-left .cv-contact-item { font-size: 0.6rem !important; margin-bottom: 3px !important; gap: 6px !important; }
+            .cv-left .cv-contact-item i { font-size: 0.7rem !important; width: 18px !important; }
+            .cv-left .cv-section-title-left { font-size: 0.65rem !important; padding-bottom: 3px !important; margin-bottom: 5px !important; gap: 4px !important; }
+            .cv-left .cv-section-left { margin-top: 2px !important; gap: 0 !important; }
+            .cv-right .cv-section-title-right { font-size: 0.7rem !important; padding-bottom: 3px !important; margin-bottom: 6px !important; gap: 4px !important; border-bottom-width: 2px !important; }
+            .cv-right .cv-section-title-right i { width: 18px !important; font-size: 0.7rem !important; }
+            .cv-right .cv-item-right { font-size: 0.65rem !important; margin-bottom: 1px !important; line-height: 1.5 !important; }
+            .cv-right .cv-org-list-right li { font-size: 0.6rem !important; margin-bottom: 1px !important; line-height: 1.4 !important; }
+            .cv-right .cv-date { font-size: 0.55rem !important; }
+            .cv-right .cv-section-right { margin-bottom: 6px !important; }
+            .cv-skill-category { margin-bottom: 4px !important; }
+            .cv-skill-category .cv-skill-cat-title { font-size: 0.6rem !important; margin-bottom: 2px !important; }
+            .cv-skill-category .cv-skill-tag-right { font-size: 0.55rem !important; padding: 1px 8px !important; border-radius: 12px !important; }
+            .cv-soft-tag-right { font-size: 0.55rem !important; padding: 2px 10px !important; border-radius: 12px !important; }
+            .cv-soft-grid { gap: 3px !important; }
+            .cv-left .foto-wrapper img { width: 100px !important; height: 100px !important; border-width: 3px !important; }
+            .cv-right .cv-org-list-right { padding-left: 14px !important; margin-top: 2px !important; }
+            .cv-left .cv-nama,
+            .cv-left .cv-title-left,
+            .cv-left .cv-section-title-left,
+            .cv-left .cv-section-title-left i,
+            .cv-left .cv-contact-item i,
+            .cv-right .cv-section-title-right i,
+            .cv-skill-category .cv-skill-cat-title {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
         }
     </style>
 </head>
@@ -481,94 +518,92 @@
             </div>
         </div>
 
-    </div>
+        <div class="btn-group-cv">
+            <button class="btn btn-success" id="btnImage"><i class="fas fa-image me-2"></i> Download Gambar</button>
+            <button class="btn btn-primary" onclick="window.print()"><i class="fas fa-print me-2"></i> Cetak</button>
+            <button class="btn btn-warning" id="btnEdit"><i class="fas fa-pen me-2"></i> Edit Data</button>
+            <button class="btn btn-danger" id="btnReset"><i class="fas fa-undo me-2"></i> Reset</button>
+        </div>
 
-    <!-- TOMBOL DI LUAR WRAPPER -->
-    <div class="btn-group-cv" style="max-width: 1000px; margin: 0 auto; border-radius: 0 0 20px 20px;">
-        <button class="btn btn-success" id="btnImage"><i class="fas fa-image me-2"></i> Download Gambar</button>
-        <button class="btn btn-primary" onclick="window.print()"><i class="fas fa-print me-2"></i> Cetak</button>
-        <button class="btn btn-warning" id="btnEdit"><i class="fas fa-pen me-2"></i> Edit Data</button>
-        <button class="btn btn-danger" id="btnReset"><i class="fas fa-undo me-2"></i> Reset</button>
-    </div>
-
-    <!-- FORM EDIT DI LUAR WRAPPER -->
-    <div class="form-section" id="formSection" style="max-width: 1000px; margin: 0 auto; border-radius: 0 0 20px 20px;">
-        <h4><i class="fas fa-pen-to-square me-2"></i> Edit Data CV</h4>
-        <div class="row g-3">
-            <div class="col-md-6">
-                <label class="form-label">Nama Lengkap</label>
-                <input type="text" id="fNama" class="form-control" />
+        <div class="form-section" id="formSection">
+            <h4><i class="fas fa-pen-to-square me-2"></i> Edit Data CV</h4>
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label class="form-label">Nama Lengkap</label>
+                    <input type="text" id="fNama" class="form-control" />
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Tempat Lahir</label>
+                    <input type="text" id="fTempatLahir" class="form-control" />
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Tanggal Lahir</label>
+                    <input type="date" id="fTanggalLahir" class="form-control" />
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Jenis Kelamin</label>
+                    <select id="fJenisKelamin" class="form-select">
+                        <option value="Laki-laki">Laki-laki</option>
+                        <option value="Perempuan">Perempuan</option>
+                    </select>
+                </div>
+                <div class="col-12">
+                    <label class="form-label">Alamat</label>
+                    <input type="text" id="fAlamat" class="form-control" />
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Email</label>
+                    <input type="email" id="fEmail" class="form-control" />
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">WhatsApp</label>
+                    <input type="text" id="fWhatsapp" class="form-control" />
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">LinkedIn</label>
+                    <input type="text" id="fLinkedin" class="form-control" />
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">TikTok</label>
+                    <input type="text" id="fTiktok" class="form-control" />
+                </div>
+                <div class="col-12"><hr /><h6 class="fw-bold"><i class="fas fa-graduation-cap me-2"></i>Pendidikan</h6></div>
+                <div class="col-md-4">
+                    <label class="form-label">Sekolah</label>
+                    <input type="text" id="fSekolah" class="form-control" />
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Jurusan</label>
+                    <input type="text" id="fJurusan" class="form-control" />
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Tahun Lulus</label>
+                    <input type="text" id="fTahunLulus" class="form-control" />
+                </div>
+                <div class="col-md-12">
+                    <label class="form-label">Status</label>
+                    <input type="text" id="fStatusPendidikan" class="form-control" />
+                </div>
+                <div class="col-12"><hr /><h6 class="fw-bold"><i class="fas fa-users me-2"></i>Organisasi</h6></div>
+                <div class="col-md-6">
+                    <label class="form-label">Nama Organisasi</label>
+                    <input type="text" id="fOrganisasi" class="form-control" />
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Jabatan</label>
+                    <input type="text" id="fJabatanOrg" class="form-control" />
+                </div>
+                <div class="col-12">
+                    <label class="form-label">Program Kerja (pisahkan dengan enter)</label>
+                    <textarea id="fProgramKerja" class="form-control" rows="3"></textarea>
+                </div>
             </div>
-            <div class="col-md-6">
-                <label class="form-label">Tempat Lahir</label>
-                <input type="text" id="fTempatLahir" class="form-control" />
-            </div>
-            <div class="col-md-6">
-                <label class="form-label">Tanggal Lahir</label>
-                <input type="date" id="fTanggalLahir" class="form-control" />
-            </div>
-            <div class="col-md-6">
-                <label class="form-label">Jenis Kelamin</label>
-                <select id="fJenisKelamin" class="form-select">
-                    <option value="Laki-laki">Laki-laki</option>
-                    <option value="Perempuan">Perempuan</option>
-                </select>
-            </div>
-            <div class="col-12">
-                <label class="form-label">Alamat</label>
-                <input type="text" id="fAlamat" class="form-control" />
-            </div>
-            <div class="col-md-6">
-                <label class="form-label">Email</label>
-                <input type="email" id="fEmail" class="form-control" />
-            </div>
-            <div class="col-md-6">
-                <label class="form-label">WhatsApp</label>
-                <input type="text" id="fWhatsapp" class="form-control" />
-            </div>
-            <div class="col-md-6">
-                <label class="form-label">LinkedIn</label>
-                <input type="text" id="fLinkedin" class="form-control" />
-            </div>
-            <div class="col-md-6">
-                <label class="form-label">TikTok</label>
-                <input type="text" id="fTiktok" class="form-control" />
-            </div>
-            <div class="col-12"><hr /><h6 class="fw-bold"><i class="fas fa-graduation-cap me-2"></i>Pendidikan</h6></div>
-            <div class="col-md-4">
-                <label class="form-label">Sekolah</label>
-                <input type="text" id="fSekolah" class="form-control" />
-            </div>
-            <div class="col-md-4">
-                <label class="form-label">Jurusan</label>
-                <input type="text" id="fJurusan" class="form-control" />
-            </div>
-            <div class="col-md-4">
-                <label class="form-label">Tahun Lulus</label>
-                <input type="text" id="fTahunLulus" class="form-control" />
-            </div>
-            <div class="col-md-12">
-                <label class="form-label">Status</label>
-                <input type="text" id="fStatusPendidikan" class="form-control" />
-            </div>
-            <div class="col-12"><hr /><h6 class="fw-bold"><i class="fas fa-users me-2"></i>Organisasi</h6></div>
-            <div class="col-md-6">
-                <label class="form-label">Nama Organisasi</label>
-                <input type="text" id="fOrganisasi" class="form-control" />
-            </div>
-            <div class="col-md-6">
-                <label class="form-label">Jabatan</label>
-                <input type="text" id="fJabatanOrg" class="form-control" />
-            </div>
-            <div class="col-12">
-                <label class="form-label">Program Kerja (pisahkan dengan enter)</label>
-                <textarea id="fProgramKerja" class="form-control" rows="3"></textarea>
+            <div class="mt-4 d-flex gap-2">
+                <button class="btn btn-primary flex-fill" id="btnSave"><i class="fas fa-save me-2"></i> Simpan</button>
+                <button class="btn btn-secondary" id="btnCancelEdit"><i class="fas fa-times me-2"></i> Batal</button>
             </div>
         </div>
-        <div class="mt-4 d-flex gap-2">
-            <button class="btn btn-primary flex-fill" id="btnSave"><i class="fas fa-save me-2"></i> Simpan</button>
-            <button class="btn btn-secondary" id="btnCancelEdit"><i class="fas fa-times me-2"></i> Batal</button>
-        </div>
+
     </div>
 
     <script>
@@ -756,78 +791,63 @@
         }
 
         // ==============================================
-        // DOWNLOAD GAMBAR - PAKAI FLEXBOX (FIX TOTAL)
+        // DOWNLOAD GAMBAR (PNG) - VERSI PERBAIKAN
         // ==============================================
         function downloadImage() {
             const overlay = $('loadingOverlay');
             overlay.style.display = 'flex';
 
-            const cvElement = $('cvWrapper');
-            const btnGroups = document.querySelectorAll('.btn-group-cv');
+            const btnGroup = document.querySelector('.btn-group-cv');
             const formSection = $('formSection');
+            const originalFormDisplay = formSection.style.display;
+            const originalBtnDisplay = btnGroup.style.display;
 
-            // Sembunyikan tombol & form
-            btnGroups.forEach(b => b.style.display = 'none');
             formSection.style.display = 'none';
+            btnGroup.style.display = 'none';
 
-            // Ukur tinggi konten
-            const leftCol = cvElement.querySelector('.cv-left');
-            const rightCol = cvElement.querySelector('.cv-right');
-            const leftHeight = leftCol.scrollHeight;
-            const rightHeight = rightCol.scrollHeight;
-            const maxHeight = Math.max(leftHeight, rightHeight);
+            const cvElement = $('cvWrapper');
 
+            // Ambil ukuran asli
+            const originalWidth = cvElement.scrollWidth;
+            const originalHeight = cvElement.scrollHeight;
+
+            // Delay biar CSS render dulu
             setTimeout(() => {
-                // Paksa tinggi sama
-                leftCol.style.height = maxHeight + 'px';
-                rightCol.style.height = maxHeight + 'px';
-
-                const finalWidth = cvElement.scrollWidth;
-                const finalHeight = cvElement.scrollHeight;
-
                 html2canvas(cvElement, {
-                    scale: 2,
+                    scale: 3,
                     useCORS: true,
                     allowTaint: true,
                     backgroundColor: '#ffffff',
                     logging: false,
-                    width: finalWidth,
-                    height: finalHeight,
-                    windowWidth: finalWidth,
-                    windowHeight: finalHeight,
+                    width: originalWidth,
+                    height: originalHeight,
+                    windowWidth: originalWidth,
+                    windowHeight: originalHeight,
                     scrollX: 0,
                     scrollY: 0,
                     x: 0,
                     y: 0,
                     onclone: function(clonedDoc) {
+                        // Paksa layout grid tetap 2 kolom di clone
                         const clonedWrapper = clonedDoc.getElementById('cvWrapper');
                         if (clonedWrapper) {
+                            clonedWrapper.style.display = 'grid';
+                            clonedWrapper.style.gridTemplateColumns = '32% 68%';
+                            clonedWrapper.style.width = originalWidth + 'px';
+                            clonedWrapper.style.height = 'auto';
+                            clonedWrapper.style.minHeight = originalHeight + 'px';
                             clonedWrapper.style.borderRadius = '0';
                             clonedWrapper.style.boxShadow = 'none';
                             clonedWrapper.style.overflow = 'visible';
-                            clonedWrapper.style.width = finalWidth + 'px';
-                            clonedWrapper.style.minHeight = finalHeight + 'px';
-
-                            const clonedLeft = clonedWrapper.querySelector('.cv-left');
-                            const clonedRight = clonedWrapper.querySelector('.cv-right');
-                            if (clonedLeft) {
-                                clonedLeft.style.height = maxHeight + 'px';
-                                clonedLeft.style.minHeight = maxHeight + 'px';
-                            }
-                            if (clonedRight) {
-                                clonedRight.style.height = maxHeight + 'px';
-                                clonedRight.style.minHeight = maxHeight + 'px';
-                            }
                         }
                     }
                 }).then(canvas => {
-                    // Kembalikan
-                    leftCol.style.height = '';
-                    rightCol.style.height = '';
-                    btnGroups.forEach(b => b.style.display = 'flex');
-                    formSection.style.display = 'none';
+                    // Tampilkan kembali tombol & form
+                    btnGroup.style.display = originalBtnDisplay || 'flex';
+                    formSection.style.display = originalFormDisplay;
                     overlay.style.display = 'none';
 
+                    // Convert ke PNG dan download
                     const link = document.createElement('a');
                     link.download = 'CV-Chairil-Ibrahim.png';
                     link.href = canvas.toDataURL('image/png');
@@ -835,14 +855,12 @@
 
                 }).catch(error => {
                     console.error('Error:', error);
-                    leftCol.style.height = '';
-                    rightCol.style.height = '';
-                    btnGroups.forEach(b => b.style.display = 'flex');
-                    formSection.style.display = 'none';
+                    btnGroup.style.display = originalBtnDisplay || 'flex';
+                    formSection.style.display = originalFormDisplay;
                     overlay.style.display = 'none';
                     alert('❌ Gagal download gambar. Silakan coba lagi.');
                 });
-            }, 500);
+            }, 300);
         }
 
         function toggleForm() {
