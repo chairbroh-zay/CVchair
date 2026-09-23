@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <title>CV - Chairil Ibrahim | Network Engineer</title>
+
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+    <!-- html2canvas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <!-- jsPDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <style>
+        /* ==============================================
+           RESET & GLOBAL
+           ============================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #eef2f7;
+            padding: 30px 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* ==============================================
+           GRADASI WARNA
+           ============================================== */
+        :root {
+            --gradient-primary: linear-gradient(135deg, #1a56db, #2563eb, #06b6d4, #14b8a6);
+            --gradient-secondary: linear-gradient(135deg, #2563eb, #06b6d4);
+            --gradient-accent: linear-gradient(135deg, #06b6d4, #14b8a6);
+        }
+
+        /* ==============================================
+           CV WRAPPER - 2 KOLOM
+           ============================================== */
+        .cv-wrapper {
+            max-width: 1000px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 32% 68%;
+            gap: 0;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.18);
+            background: white;
+        }
+
+        /* ==============================================
+           SISI KIRI - HITAM
+           ============================================== */
+        .cv-left {
+            background: #1a1a2e;
+            padding: 35px 22px 40px;
+            color: #e0e0e0;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            min-height: 100%;
+        }
+
+        .cv-left .foto-wrapper {
+            text-align: center;
+        }
+
+        .cv-left .foto-wrapper img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            padding: 4px;
+            background: white;
+            cursor: pointer;
+            transition: 0.2s;
+            border: 4px solid transparent;
+            background-image: var(--gradient-primary), linear-gradient(white, white);
+            background-origin: border-box;
+            background-clip: padding-box, border-box;
+        }
+
+        .cv-left .foto-wrapper img:hover {
+            transform: scale(1.02);
+        }
+
+        .cv-left .cv-nama {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-top: 2px;
+            line-height: 1.2;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .cv-left .cv-title-left {
+            text-align: center;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            background: var(--gradient-secondary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .cv-left .cv-section-left {
+            margin-top: 2px;
+        }
+
+        .cv-left .cv-section-title-left {
+            font-weight: 700;
+            font-size: 0.85rem;
+            border-bottom: 2px solid rgba(37, 99, 235, 0.3);
+            padding-bottom: 7px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--gradient-secondary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .cv-left .cv-section-title-left i {
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .cv-left .cv-about {
+            font-size: 0.82rem;
+            line-height: 1.8;
+            color: #c8c8d4;
+            text-align: justify;
+        }
+
+        .cv-left .cv-contact-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.78rem;
+            color: #c8c8d4;
+            margin-bottom: 7px;
+            word-break: break-word;
+        }
+
+        .cv-left .cv-contact-item i {
+            width: 22px;
+            font-size: 0.95rem;
+            text-align: center;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* ==============================================
+           SISI KANAN - PUTIH
+           ============================================== */
+        .cv-right {
+            background: white;
+            padding: 35px 32px 40px;
+        }
+
+        .cv-right .cv-section-right {
+            margin-bottom: 22px;
+        }
+
+        .cv-right .cv-section-title-right {
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: #1a1a2e;
+            padding-bottom: 7px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            letter-spacing: 0.3px;
+            border-bottom: 3px solid transparent;
+            border-image: var(--gradient-primary);
+            border-image-slice: 1;
+        }
+
+        .cv-right .cv-section-title-right i {
+            width: 24px;
+            text-align: center;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .cv-right .cv-item-right {
+            font-size: 0.88rem;
+            color: #2d3748;
+            margin-bottom: 4px;
+            line-height: 1.8;
+        }
+
+        .cv-right .cv-item-right strong {
+            color: #1a1a2e;
+            font-weight: 600;
+        }
+
+        .cv-right .cv-date {
+            font-size: 0.75rem;
+            color: #6b7280;
+            font-weight: 500;
+        }
+
+        .cv-right .cv-org-list-right {
+            padding-left: 20px;
+            margin-top: 4px;
+        }
+
+        .cv-right .cv-org-list-right li {
+            font-size: 0.85rem;
+            color: #2d3748;
+            margin-bottom: 3px;
+            line-height: 1.6;
+        }
+
+        /* ==============================================
+           SKILL
+           ============================================== */
+        .cv-skill-category {
+            margin-bottom: 10px;
+        }
+
+        .cv-skill-category .cv-skill-cat-title {
+            font-weight: 600;
+            font-size: 0.8rem;
+            margin-bottom: 4px;
+            background: var(--gradient-secondary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .cv-skill-category .cv-skill-grid-right {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+        }
+
+        .cv-skill-category .cv-skill-tag-right {
+            background: #eef2f7;
+            padding: 3px 12px;
+            border-radius: 16px;
+            font-size: 0.7rem;
+            color: #1a1a2e;
+            border: 1px solid #e2e8f0;
+        }
+
+        /* ==============================================
+           SOFT SKILL
+           ============================================== */
+        .cv-soft-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+        }
+
+        .cv-soft-tag-right {
+            padding: 4px 14px;
+            border-radius: 16px;
+            font-size: 0.72rem;
+            color: #1a1a2e;
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.1), rgba(20, 184, 166, 0.1));
+            border: 1px solid rgba(6, 182, 212, 0.3);
+        }
+
+        /* ==============================================
+           TOMBOL
+           ============================================== */
+        .btn-group-cv {
+            grid-column: 1 / -1;
+            padding: 16px 24px 20px;
+            background: #f8f9fa;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            border-top: 1px solid #e9ecef;
+        }
+
+        .btn-group-cv .btn {
+            border-radius: 10px;
+            font-weight: 600;
+            padding: 10px 22px;
+            flex: 1;
+            min-width: 120px;
+            border: none;
+            cursor: pointer;
+            transition: 0.2s;
+            color: white;
+        }
+
+        .btn-group-cv .btn-success {
+            background: var(--gradient-primary);
+        }
+        .btn-group-cv .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(6, 182, 212, 0.4);
+        }
+
+        .btn-group-cv .btn-primary {
+            background: var(--gradient-secondary);
+        }
+        .btn-group-cv .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(37, 99, 235, 0.4);
+        }
+
+        .btn-group-cv .btn-warning {
+            background: var(--gradient-accent);
+        }
+        .btn-group-cv .btn-warning:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(20, 184, 166, 0.4);
+        }
+
+        .btn-group-cv .btn-danger {
+            background: linear-gradient(135deg, #dc2626, #ef4444);
+        }
+        .btn-group-cv .btn-danger:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(220, 38, 38, 0.4);
+        }
+
+        /* ==============================================
+           LOADING OVERLAY
+           ============================================== */
+        #loadingOverlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        #loadingOverlay .spinner {
+            width: 60px;
+            height: 60px;
+            border: 6px solid #f3f3f3;
+            border-top: 6px solid transparent;
+            border-image: var(--gradient-primary);
+            border-image-slice: 1;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* ==============================================
+           FORM EDIT
+           ============================================== */
+        .form-section {
+            grid-column: 1 / -1;
+            padding: 24px 28px;
+            background: #f8f9fa;
+            border-top: 2px dashed #dee2e6;
+            display: none;
+        }
+
+        .form-section h4 {
+            font-weight: 700;
+            color: #1a1a2e;
+            margin-bottom: 16px;
+        }
+
+        .form-section .form-label {
+            font-weight: 600;
+            font-size: 0.8rem;
+            color: #2c3e50;
+        }
+
+        .form-section .form-control,
+        .form-section .form-select {
+            border-radius: 8px;
+            border: 1.5px solid #e2e8f0;
+            font-size: 0.9rem;
+            padding: 8px 14px;
+            width: 100%;
+        }
+
+        .form-section .form-control:focus,
+        .form-section .form-select:focus {
+            border-color: #06b6d4;
+            box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.2);
+            outline: none;
+        }
+
+        .form-section .btn-primary {
+            background: var(--gradient-primary);
+            border: none;
+            color: white;
+        }
+        .form-section .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(6, 182, 212, 0.4);
+        }
+
+        /* ==============================================
+           RESPONSIVE
+           ============================================== */
+        @media (max-width: 768px) {
+            .cv-wrapper {
+                grid-template-columns: 1fr;
+                border-radius: 14px;
+            }
+
+            .cv-left {
+                padding: 24px 18px 28px;
+            }
+
+            .cv-left .foto-wrapper img {
+                width: 120px;
+                height: 120px;
+            }
+
+            .cv-right {
+                padding: 20px 16px 28px;
+            }
+
+            .btn-group-cv {
+                flex-direction: column;
+            }
+
+            .btn-group-cv .btn {
+                flex: none;
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 400px) {
+            body {
+                padding: 10px;
+            }
+
+            .cv-left .cv-nama {
+                font-size: 1.2rem;
+            }
+
+            .cv-left .foto-wrapper img {
+                width: 100px;
+                height: 100px;
+            }
+        }
+
+        /* ==============================================
+           PRINT - A4
+           ============================================== */
+        @media print {
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                background: white !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                display: block !important;
+                min-height: auto !important;
+            }
+
+            .cv-wrapper {
+                max-width: 100% !important;
+                width: 100% !important;
+                display: grid !important;
+                grid-template-columns: 32% 68% !important;
+                gap: 0 !important;
+                border-radius: 0 !important;
+                box-shadow: none !important;
+                background: white !important;
+                page-break-after: avoid !important;
+                height: auto !important;
+                min-height: 100vh !important;
+            }
+
+            .cv-left {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                background: #1a1a2e !important;
+                padding: 22px 16px 28px !important;
+                gap: 10px !important;
+            }
+
+            .cv-right {
+                background: white !important;
+                padding: 22px 24px 28px !important;
+            }
+
+            .btn-group-cv {
+                display: none !important;
+            }
+
+            .form-section {
+                display: none !important;
+            }
+
+            #loadingOverlay {
+                display: none !important;
+            }
+
+            .cv-left .cv-nama {
+                font-size: 1.2rem !important;
+            }
+            .cv-left .cv-title-left {
+                font-size: 0.65rem !important;
+            }
+            .cv-left .cv-about {
+                font-size: 0.65rem !important;
+                line-height: 1.5 !important;
+            }
+            .cv-left .cv-contact-item {
+                font-size: 0.6rem !important;
+                margin-bottom: 3px !important;
+                gap: 6px !important;
+            }
+            .cv-left .cv-contact-item i {
+                font-size: 0.7rem !important;
+                width: 18px !important;
+            }
+            .cv-left .cv-section-title-left {
+                font-size: 0.65rem !important;
+                padding-bottom: 3px !important;
+                margin-bottom: 5px !important;
+                gap: 4px !important;
+            }
+            .cv-left .cv-section-left {
+                margin-top: 2px !important;
+                gap: 0 !important;
+            }
+            .cv-right .cv-section-title-right {
+                font-size: 0.7rem !important;
+                padding-bottom: 3px !important;
+                margin-bottom: 6px !important;
+                gap: 4px !important;
+                border-bottom-width: 2px !important;
+            }
+            .cv-right .cv-section-title-right i {
+                width: 18px !important;
+                font-size: 0.7rem !important;
+            }
+            .cv-right .cv-item-right {
+                font-size: 0.65rem !important;
+                margin-bottom: 1px !important;
+                line-height: 1.5 !important;
+            }
+            .cv-right .cv-org-list-right li {
+                font-size: 0.6rem !important;
+                margin-bottom: 1px !important;
+                line-height: 1.4 !important;
+            }
+            .cv-right .cv-date {
+                font-size: 0.55rem !important;
+            }
+            .cv-right .cv-section-right {
+                margin-bottom: 6px !important;
+            }
+            .cv-skill-category {
+                margin-bottom: 4px !important;
+            }
+            .cv-skill-category .cv-skill-cat-title {
+                font-size: 0.6rem !important;
+                margin-bottom: 2px !important;
+            }
+            .cv-skill-category .cv-skill-tag-right {
+                font-size: 0.55rem !important;
+                padding: 1px 8px !important;
+                border-radius: 12px !important;
+            }
+            .cv-soft-tag-right {
+                font-size: 0.55rem !important;
+                padding: 2px 10px !important;
+                border-radius: 12px !important;
+            }
+            .cv-soft-grid {
+                gap: 3px !important;
+            }
+            .cv-left .foto-wrapper img {
+                width: 100px !important;
+                height: 100px !important;
+                border-width: 3px !important;
+            }
+            .cv-right .cv-org-list-right {
+                padding-left: 14px !important;
+                margin-top: 2px !important;
+            }
+
+            .cv-left .cv-nama,
+            .cv-left .cv-title-left,
+            .cv-left .cv-section-title-left,
+            .cv-left .cv-section-title-left i,
+            .cv-left .cv-contact-item i,
+            .cv-right .cv-section-title-right i,
+            .cv-skill-category .cv-skill-cat-title {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- LOADING OVERLAY -->
+    <div id="loadingOverlay">
+        <div class="spinner"></div>
+        <div>⏳ Sedang memproses PDF...</div>
+        <div style="font-size:0.8rem; margin-top:8px; color:#aaa;">Mohon tunggu sebentar</div>
+    </div>
+
+    <div class="cv-wrapper" id="cvWrapper">
+
+        <!-- KIRI -->
+        <div class="cv-left">
+            <div class="foto-wrapper">
+                <img src="fotoCV.png" alt="Foto Chairil" id="fotoCV"
+                onerror="this.src='https://ui-avatars.com/api/?name=Chairil+Ibrahim&background=2563eb&color=fff&size=150&bold=true'" />
+            </div>
+            <div class="cv-nama" id="cvNama">Chairil Ibrahim</div>
+            <div class="cv-title-left" id="cvTitle">Network Engineer | Routing &amp; Switching</div>
+
+            <div class="cv-section-left">
+                <div class="cv-section-title-left"><i class="fas fa-user"></i> Tentang Saya</div>
+                <div class="cv-about" id="cvAbout">
+                    Pelajar TJKT yang fokus di bidang jaringan komputer, routing, switching, topologi, dan internet. Cepat beradaptasi dengan teknologi baru, kreatif, dan selalu bertanggung jawab.
+                </div>
+            </div>
+
+            <div class="cv-section-left">
+                <div class="cv-section-title-left"><i class="fas fa-address-book"></i> Kontak</div>
+                <div class="cv-contact-item"><i class="fas fa-envelope"></i><span id="cvEmail">chairbroh50@gmail.com</span></div>
+                <div class="cv-contact-item"><i class="fas fa-phone"></i><span id="cvWhatsapp">0859 2640 4716</span></div>
+                <div class="cv-contact-item"><i class="fab fa-linkedin"></i><span id="cvLinkedin">linkedin.com/in/chairil-ibrahim</span></div>
+                <div class="cv-contact-item"><i class="fab fa-tiktok"></i><span id="cvTiktok">@psyonic</span></div>
+                <div class="cv-contact-item"><i class="fas fa-map-pin"></i><span id="cvAlamat">Desa Larangan Blok Ceplik Timur RT 09 RW 02, Kec. Lohbener, Kab. Indramayu</span></div>
+            </div>
+        </div>
+
+        <!-- KANAN -->
+        <div class="cv-right">
+            <div class="cv-section-right">
+                <div class="cv-section-title-right"><i class="fas fa-address-card"></i> Data Pribadi</div>
+                <div class="cv-item-right"><strong>Tempat, Tanggal Lahir:</strong> <span id="cvTtl">Indramayu, 3 Februari 2009</span></div>
+                <div class="cv-item-right"><strong>Jenis Kelamin:</strong> <span id="cvJenisKelamin">Laki-laki</span></div>
+                <div class="cv-item-right"><strong>Alamat:</strong> <span id="cvAlamatKanan">Desa Larangan Blok Ceplik Timur RT 09 RW 02, Kec. Lohbener, Kab. Indramayu</span></div>
+            </div>
+
+            <div class="cv-section-right">
+                <div class="cv-section-title-right"><i class="fas fa-graduation-cap"></i> Pendidikan</div>
+                <div class="cv-item-right"><strong id="cvSekolah">SMKN 1 Losarang</strong></div>
+                <div class="cv-item-right" id="cvJurusan">Jurusan: Teknik Jaringan Komputer dan Telekomunikasi (TJKT)</div>
+                <div class="cv-item-right" id="cvTahunLulus">Tahun Lulus: 2027</div>
+                <div class="cv-item-right" id="cvStatusPendidikan">Status: Pelajar Aktif</div>
+            </div>
+
+            <div class="cv-section-right">
+                <div class="cv-section-title-right"><i class="fas fa-network-wired"></i> Hard Skill</div>
+                <div id="cvHardSkill"></div>
+            </div>
+
+            <div class="cv-section-right">
+                <div class="cv-section-title-right"><i class="fas fa-brain"></i> Soft Skill</div>
+                <div class="cv-soft-grid" id="cvSoftSkill"></div>
+            </div>
+
+            <div class="cv-section-right">
+                <div class="cv-section-title-right"><i class="fas fa-briefcase"></i> Pengalaman Kerja</div>
+                <div id="cvPengalaman"></div>
+            </div>
+
+            <div class="cv-section-right">
+                <div class="cv-section-title-right"><i class="fas fa-users"></i> Organisasi &amp; Kepanitiaan</div>
+                <div id="cvOrganisasi"></div>
+            </div>
+        </div>
+
+        <!-- TOMBOL -->
+        <div class="btn-group-cv">
+            <button class="btn btn-success" id="btnPDF"><i class="fas fa-file-pdf me-2"></i> Download PDF</button>
+            <button class="btn btn-primary" onclick="window.print()"><i class="fas fa-print me-2"></i> Cetak</button>
+            <button class="btn btn-warning" id="btnEdit"><i class="fas fa-pen me-2"></i> Edit Data</button>
+            <button class="btn btn-danger" id="btnReset"><i class="fas fa-undo me-2"></i> Reset</button>
+        </div>
+
+        <!-- FORM EDIT -->
+        <div class="form-section" id="formSection">
+            <h4><i class="fas fa-pen-to-square me-2"></i> Edit Data CV</h4>
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label class="form-label">Nama Lengkap</label>
+                    <input type="text" id="fNama" class="form-control" />
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Tempat Lahir</label>
+                    <input type="text" id="fTempatLahir" class="form-control" />
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Tanggal Lahir</label>
+                    <input type="date" id="fTanggalLahir" class="form-control" />
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Jenis Kelamin</label>
+                    <select id="fJenisKelamin" class="form-select">
+                        <option value="Laki-laki">Laki-laki</option>
+                        <option value="Perempuan">Perempuan</option>
+                    </select>
+                </div>
+                <div class="col-12">
+                    <label class="form-label">Alamat</label>
+                    <input type="text" id="fAlamat" class="form-control" />
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Email</label>
+                    <input type="email" id="fEmail" class="form-control" />
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">WhatsApp</label>
+                    <input type="text" id="fWhatsapp" class="form-control" />
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">LinkedIn</label>
+                    <input type="text" id="fLinkedin" class="form-control" />
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">TikTok</label>
+                    <input type="text" id="fTiktok" class="form-control" />
+                </div>
+                <div class="col-12"><hr /><h6 class="fw-bold"><i class="fas fa-graduation-cap me-2"></i>Pendidikan</h6></div>
+                <div class="col-md-4">
+                    <label class="form-label">Sekolah</label>
+                    <input type="text" id="fSekolah" class="form-control" />
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Jurusan</label>
+                    <input type="text" id="fJurusan" class="form-control" />
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Tahun Lulus</label>
+                    <input type="text" id="fTahunLulus" class="form-control" />
+                </div>
+                <div class="col-md-12">
+                    <label class="form-label">Status</label>
+                    <input type="text" id="fStatusPendidikan" class="form-control" />
+                </div>
+                <div class="col-12"><hr /><h6 class="fw-bold"><i class="fas fa-users me-2"></i>Organisasi</h6></div>
+                <div class="col-md-6">
+                    <label class="form-label">Nama Organisasi</label>
+                    <input type="text" id="fOrganisasi" class="form-control" />
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Jabatan</label>
+                    <input type="text" id="fJabatanOrg" class="form-control" />
+                </div>
+                <div class="col-12">
+                    <label class="form-label">Program Kerja (pisahkan dengan enter)</label>
+                    <textarea id="fProgramKerja" class="form-control" rows="3"></textarea>
+                </div>
+            </div>
+            <div class="mt-4 d-flex gap-2">
+                <button class="btn btn-primary flex-fill" id="btnSave"><i class="fas fa-save me-2"></i> Simpan</button>
+                <button class="btn btn-secondary" id="btnCancelEdit"><i class="fas fa-times me-2"></i> Batal</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // ==============================================
+        // DATA DEFAULT - FULL JARINGAN
+        // ==============================================
+        const defaultData = {
+            nama: 'Chairil Ibrahim',
+            tempatLahir: 'Indramayu',
+            tanggalLahir: '2009-02-03',
+            jenisKelamin: 'Laki-laki',
+            alamat: 'Desa Larangan Blok Ceplik Timur RT 09 RW 02, Kec. Lohbener, Kab. Indramayu',
+            email: 'chairbroh50@gmail.com',
+            whatsapp: '0859 2640 4716',
+            linkedin: 'linkedin.com/in/chairil-ibrahim',
+            tiktok: '@psyonic',
+            sekolah: 'SMKN 1 Losarang',
+            jurusan: 'Teknik Jaringan Komputer dan Telekomunikasi (TJKT)',
+            tahunLulus: '2027',
+            statusPendidikan: 'Pelajar Aktif',
+            organisasi: 'PAJARBARA (Pasukan Pelajar Pengibar Bendera)',
+            jabatanOrg: 'Seksi Sarana dan Prasarana',
+            programKerja: '• Kreativitas anggota\n• Pembersihan sanggar/ruang ekskul\n• Pembuatan papan mading\n• Membantu program kerja seksi lain',
+            // ==============================================
+            // HARD SKILL - 3 KATEGORI (TANPA UKURAN)
+            // ==============================================
+            hardSkills: {
+                routingSwitching: [
+                    'Konfigurasi Router',
+                    'Konfigurasi Switch',
+                    'Routing Static & Dynamic',
+                    'VLAN Configuration',
+                    'Topologi Jaringan',
+                    'Subnetting'
+                ],
+                jaringanInternet: [
+                    'WLAN / Jaringan Lokal',
+                    'DNS & DHCP',
+                    'Firewall Basic',
+                    'Network Monitoring',
+                    'Cryptography Basic',
+                    'Web Security Basic',
+                    'Password/Code Analyst'
+                ],
+                tools: [
+                    'Microsoft Word',
+                    'Microsoft Excel',
+                    'Microsoft PowerPoint',
+                    'Winbox (Mikrotik)',
+                    'Cisco Packet Tracer'
+                ]
+            },
+            // ==============================================
+            // SOFT SKILL - 4 ITEM
+            // ==============================================
+            softSkills: [
+                'Cepat menyerap materi (1 hari paham)',
+                'Disiplin',
+                'Berpikir logis & analitis',
+                'Kreatif dalam merancang solusi'
+            ],
+            pengalaman: [
+                { 
+                    posisi: 'Web Developer - Chairbroh', 
+                    tanggal: 'Januari 2026 - Maret 2026', 
+                    deskripsi: 'Membangun website portfolio client dengan HTML, CSS, dan JavaScript murni (vanilla).' 
+                },
+                { 
+                    posisi: 'Praktik Jaringan - SMKN 1 Losarang', 
+                    tanggal: '2024 - Sekarang', 
+                    deskripsi: 'Praktik konfigurasi router, switch, dan WLAN sebagai bagian dari pembelajaran sekolah.' 
+                }
+            ],
+            kepanitiaan: [
+                { nama: 'Panitia LKBB Laskar Pantura', tahun: '2026', deskripsi: 'Bertugas sebagai Pendataan Nilai dalam perlombaan LKBB (Lomba Ketangkasan Baris Berbaris) Laskar Pantura yang diselenggarakan oleh SMKN 1 Losarang.' }
+            ]
+        };
+
+        // ==============================================
+        // STATE
+        // ==============================================
+        let cvData = { ...defaultData };
+        let fotoUrl = 'fotoCV.png';
+
+        // ==============================================
+        // DOM REFS
+        // ==============================================
+        const $ = (id) => document.getElementById(id);
+
+        // ==============================================
+        // RENDER CV
+        // ==============================================
+        function renderCV() {
+            const data = cvData;
+
+            $('fotoCV').src = fotoUrl || 'https://ui-avatars.com/api/?name=Chairil+Ibrahim&background=2563eb&color=fff&size=150&bold=true';
+            $('cvNama').textContent = data.nama;
+            $('cvTitle').textContent = 'Network Engineer | Routing & Switching';
+            $('cvAbout').textContent = 'Pelajar TJKT yang fokus di bidang jaringan komputer, routing, switching, topologi, dan internet. Cepat beradaptasi dengan teknologi baru, kreatif, dan selalu bertanggung jawab.';
+            $('cvEmail').textContent = data.email;
+            $('cvWhatsapp').textContent = data.whatsapp;
+            $('cvLinkedin').textContent = data.linkedin || '-';
+            $('cvTiktok').textContent = data.tiktok;
+            $('cvAlamat').textContent = data.alamat;
+
+            const tgl = data.tanggalLahir ? new Date(data.tanggalLahir) : new Date();
+            const tglFormatted = tgl.getDate() + ' ' + ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'][tgl.getMonth()] + ' ' + tgl.getFullYear();
+            $('cvTtl').textContent = data.tempatLahir + ', ' + tglFormatted;
+            $('cvJenisKelamin').textContent = data.jenisKelamin;
+            $('cvAlamatKanan').textContent = data.alamat;
+
+            $('cvSekolah').textContent = data.sekolah;
+            $('cvJurusan').textContent = 'Jurusan: ' + data.jurusan;
+            $('cvTahunLulus').textContent = 'Tahun Lulus: ' + data.tahunLulus;
+            $('cvStatusPendidikan').textContent = 'Status: ' + data.statusPendidikan;
+
+            // ==============================================
+            // HARD SKILL - 3 KATEGORI
+            // ==============================================
+            const hardContainer = $('cvHardSkill');
+            hardContainer.innerHTML = '';
+            const categories = [
+                { key: 'routingSwitching', icon: 'fa-route', label: 'Routing & Switching' },
+                { key: 'jaringanInternet', icon: 'fa-globe', label: 'Jaringan & Internet' },
+                { key: 'tools', icon: 'fa-tools', label: 'Tools' }
+            ];
+            categories.forEach(cat => {
+                const skills = data.hardSkills[cat.key] || [];
+                if (skills.length > 0) {
+                    const div = document.createElement('div');
+                    div.className = 'cv-skill-category';
+                    div.innerHTML = `
+                        <div class="cv-skill-cat-title"><i class="fas ${cat.icon}" style="margin-right:4px;"></i> ${cat.label}</div>
+                        <div class="cv-skill-grid-right">
+                            ${skills.map(s => `<span class="cv-skill-tag-right">${s}</span>`).join('')}
+                        </div>
+                    `;
+                    hardContainer.appendChild(div);
+                }
+            });
+
+            // ==============================================
+            // SOFT SKILL
+            // ==============================================
+            const softContainer = $('cvSoftSkill');
+            softContainer.innerHTML = '';
+            (data.softSkills || []).forEach(skill => {
+                const span = document.createElement('span');
+                span.className = 'cv-soft-tag-right';
+                span.textContent = skill;
+                softContainer.appendChild(span);
+            });
+
+            // ==============================================
+            // PENGALAMAN KERJA
+            // ==============================================
+            const pengalamanContainer = $('cvPengalaman');
+            pengalamanContainer.innerHTML = '';
+            (data.pengalaman || []).forEach((exp, index) => {
+                const div = document.createElement('div');
+                if (index > 0) div.style.marginTop = '10px';
+                div.innerHTML = `
+                    <div class="cv-item-right"><strong>${exp.posisi}</strong> <span class="cv-date">(${exp.tanggal})</span></div>
+                    <div class="cv-item-right" style="font-size:0.82rem; color:#4a5568; padding-left:10px;">${exp.deskripsi}</div>
+                `;
+                pengalamanContainer.appendChild(div);
+            });
+
+            // ==============================================
+            // ORGANISASI
+            // ==============================================
+            const orgContainer = $('cvOrganisasi');
+            orgContainer.innerHTML = '';
+            const progKerja = (data.programKerja || '').split('\n').filter(p => p.trim());
+            const orgDiv = document.createElement('div');
+            orgDiv.innerHTML = `
+                <div class="cv-item-right"><strong>${data.organisasi}</strong></div>
+                <div class="cv-item-right"><strong>Jabatan:</strong> ${data.jabatanOrg}</div>
+                <div class="cv-item-right"><strong>Program Kerja:</strong></div>
+                <ul class="cv-org-list-right">
+                    ${progKerja.map(p => `<li>${p.replace('• ', '')}</li>`).join('')}
+                </ul>
+            `;
+            orgContainer.appendChild(orgDiv);
+
+            (data.kepanitiaan || []).forEach(k => {
+                const div = document.createElement('div');
+                div.style.marginTop = '12px';
+                div.innerHTML = `
+                    <div class="cv-item-right"><strong>${k.nama}</strong> <span class="cv-date">(${k.tahun})</span></div>
+                    <div class="cv-item-right" style="font-size:0.82rem; color:#4a5568; padding-left:10px;">${k.deskripsi}</div>
+                `;
+                orgContainer.appendChild(div);
+            });
+
+            updateFormFromData();
+        }
+
+        // ==============================================
+        // UPDATE FORM
+        // ==============================================
+        function updateFormFromData() {
+            const data = cvData;
+            $('fNama').value = data.nama;
+            $('fTempatLahir').value = data.tempatLahir;
+            $('fTanggalLahir').value = data.tanggalLahir;
+            $('fJenisKelamin').value = data.jenisKelamin;
+            $('fAlamat').value = data.alamat;
+            $('fEmail').value = data.email;
+            $('fWhatsapp').value = data.whatsapp;
+            $('fLinkedin').value = data.linkedin;
+            $('fTiktok').value = data.tiktok;
+            $('fSekolah').value = data.sekolah;
+            $('fJurusan').value = data.jurusan;
+            $('fTahunLulus').value = data.tahunLulus;
+            $('fStatusPendidikan').value = data.statusPendidikan;
+            $('fOrganisasi').value = data.organisasi;
+            $('fJabatanOrg').value = data.jabatanOrg;
+            $('fProgramKerja').value = data.programKerja;
+        }
+
+        function updateDataFromForm() {
+            cvData.nama = $('fNama').value;
+            cvData.tempatLahir = $('fTempatLahir').value;
+            cvData.tanggalLahir = $('fTanggalLahir').value;
+            cvData.jenisKelamin = $('fJenisKelamin').value;
+            cvData.alamat = $('fAlamat').value;
+            cvData.email = $('fEmail').value;
+            cvData.whatsapp = $('fWhatsapp').value;
+            cvData.linkedin = $('fLinkedin').value;
+            cvData.tiktok = $('fTiktok').value;
+            cvData.sekolah = $('fSekolah').value;
+            cvData.jurusan = $('fJurusan').value;
+            cvData.tahunLulus = $('fTahunLulus').value;
+            cvData.statusPendidikan = $('fStatusPendidikan').value;
+            cvData.organisasi = $('fOrganisasi').value;
+            cvData.jabatanOrg = $('fJabatanOrg').value;
+            cvData.programKerja = $('fProgramKerja').value;
+        }
+
+        function saveData() {
+            updateDataFromForm();
+            renderCV();
+            localStorage.setItem('cvData', JSON.stringify(cvData));
+            localStorage.setItem('fotoUrl', fotoUrl);
+            alert('✅ Data berhasil disimpan!');
+        }
+
+        function loadData() {
+            const saved = localStorage.getItem('cvData');
+            if (saved) {
+                try {
+                    cvData = JSON.parse(saved);
+                } catch (e) {}
+            }
+            const savedFoto = localStorage.getItem('fotoUrl');
+            if (savedFoto) fotoUrl = savedFoto;
+        }
+
+        // ==============================================
+        // EXPORT PDF
+        // ==============================================
+        function exportPDF() {
+            const overlay = $('loadingOverlay');
+            overlay.style.display = 'flex';
+
+            const btnGroup = document.querySelector('.btn-group-cv');
+            const formSection = $('formSection');
+            const originalDisplay = formSection.style.display;
+            formSection.style.display = 'none';
+            btnGroup.style.display = 'none';
+
+            const cvElement = $('cvWrapper');
+
+            html2canvas(cvElement, {
+                scale: 3,
+                useCORS: true,
+                allowTaint: true,
+                backgroundColor: '#ffffff',
+                logging: false,
+                width: cvElement.scrollWidth,
+                height: cvElement.scrollHeight,
+                windowWidth: cvElement.scrollWidth,
+                windowHeight: cvElement.scrollHeight
+            }).then(canvas => {
+                btnGroup.style.display = 'flex';
+                formSection.style.display = originalDisplay;
+                overlay.style.display = 'none';
+
+                const imgData = canvas.toDataURL('image/png');
+                const { jsPDF } = window.jspdf;
+                const pdf = new jsPDF('p', 'mm', 'a4');
+                const pdfWidth = pdf.internal.pageSize.getWidth();
+                const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+                pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+                pdf.save('CV-Chairil-Ibrahim.pdf');
+
+            }).catch(error => {
+                console.error('Error:', error);
+                btnGroup.style.display = 'flex';
+                formSection.style.display = originalDisplay;
+                overlay.style.display = 'none';
+                alert('❌ Gagal export PDF. Silakan coba lagi.');
+            });
+        }
+
+        // ==============================================
+        // TOGGLE FORM
+        // ==============================================
+        function toggleForm() {
+            const formSection = $('formSection');
+            const btnEdit = $('btnEdit');
+            if (formSection.style.display === 'none') {
+                formSection.style.display = 'block';
+                formSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                btnEdit.textContent = 'Tutup Form';
+                btnEdit.className = 'btn btn-warning';
+            } else {
+                formSection.style.display = 'none';
+                btnEdit.textContent = 'Edit Data';
+                btnEdit.className = 'btn btn-warning';
+            }
+        }
+
+        function changeFoto() {
+            const url = prompt('Masukkan URL foto baru:', fotoUrl);
+            if (url !== null && url.trim() !== '') {
+                fotoUrl = url.trim();
+                localStorage.setItem('fotoUrl', fotoUrl);
+                renderCV();
+            }
+        }
+
+        function resetData() {
+            if (confirm('Yakin mau reset ke data default?')) {
+                cvData = JSON.parse(JSON.stringify(defaultData));
+                fotoUrl = 'fotoCV.png';
+                localStorage.removeItem('cvData');
+                localStorage.removeItem('fotoUrl');
+                renderCV();
+                alert('✅ Data direset ke default!');
+            }
+        }
+
+        // ==============================================
+        // INIT
+        // ==============================================
+        document.addEventListener('DOMContentLoaded', function() {
+            loadData();
+            renderCV();
+            $('btnEdit').addEventListener('click', toggleForm);
+            $('btnCancelEdit').addEventListener('click', toggleForm);
+            $('btnSave').addEventListener('click', saveData);
+            $('btnPDF').addEventListener('click', exportPDF);
+            $('btnReset').addEventListener('click', resetData);
+            $('fotoCV').addEventListener('click', changeFoto);
+        });
+    </script>
+
+</body>
+</html>
